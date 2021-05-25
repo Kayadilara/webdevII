@@ -19,6 +19,7 @@ class CreateNewsTable extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('category');
+            $table->string('content');
         });
     }
 

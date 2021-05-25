@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\NewsletterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +21,36 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/news', [NewsController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::resource('news', NewsController::class);
+
+Route::resource('products', ProductController::class);
+
+Route::get('/products/image/{id}', [ProductController::class, 'getImage'])->name('products.getImage');
+
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
+
+Route::get('/about', function()
+{
+    return view('/about/about');
+});
+
+Route::get('/sponsors', function()
+{
+    return view('/about/sponsors');
+});
+
+Route::get('/contact', function()
+{
+    return view('/about/contact');
+});
+
+Route::get('/privacy', function()
+{
+    return view('/about/privacy');
+});
+
+require __DIR__.'/auth.php';

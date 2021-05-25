@@ -20,6 +20,7 @@ class InitialCreate extends Migration
             $table->string('type');
             $table->integer('quantity');
             $table->binary('image')->nullable();
+            $table->double('price');
         });
     }
 

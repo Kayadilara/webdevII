@@ -9,8 +9,5 @@ class Product extends Model
 {
     use HasFactory;
 
-    $table->string('name');
-    $table->string('type');
-    $table->integer('quantity');
-    $table->binary('image');
+    protected $fillable=['name','type','quantity','image','price'];
 }

@@ -14,4 +14,5 @@ class NewsRepository
             ->take(20)
             ->get();
     }
+
 }

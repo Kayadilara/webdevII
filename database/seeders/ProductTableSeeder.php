@@ -16,11 +16,32 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert([
-            'name' => 'Strawberry cake',
-            'created_at' =>  Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'type' => 'Cake',
-            'quantity' => 20]);
+        DB::table('products')->insert(
+        [
+            [
+                'name' => 'Aardbeientaart',
+                'created_at' =>  Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'type' => 'Taart',
+                'quantity' => 20,
+                'price' => 1500
+            ],
+            [
+                'name' => 'Verjaardagskaart',
+                'created_at' =>  Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'type' => 'Wenskaart',
+                'quantity' => 50,
+                'price' => 200
+            ],
+            [
+                'name' => 'Kat speelgoed',
+                'created_at' =>  Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'type' => 'Cadeau',
+                'quantity' => 5,
+                'price' => 3000
+            ]
+        ]);
     }
 }

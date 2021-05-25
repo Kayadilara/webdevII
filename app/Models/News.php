@@ -9,7 +9,5 @@ class News extends Model
 {
     use HasFactory;
 
-    $table->string('title');
-    $table->string('author');
-    $table->string('category');
+    protected $fillable = ['title','author','category','content'];
 }

@@ -29,7 +29,8 @@ class NewsTableSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'title' => Str::random(10),
                 'author' => Str::random(10),
-                'category' => Str::random(10)];
+                'category' => Str::random(10),
+                'content' => Str::random(100)];
             array_push($newsList, $news);
         }
         return $newsList;
