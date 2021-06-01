@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-//DELETE THIS
-use App\Repository\NewsRepository;
 use Illuminate\Http\Request;
 use App\Models\News;
 
@@ -11,11 +9,13 @@ class NewsController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);
-    } 
+    }
 
     function index()
     {
-        return view('news.index', ['news' => NewsRepository::GetOverviewNews()]);
+        return view('news.index', ['news' => News::orderBy('updated_at','desc')
+                                                    ->take(20)
+                                                    ->get()]);
     }
 
     function show($id)
@@ -56,7 +56,7 @@ class NewsController extends Controller
             'content' => 'required',
             'category' => 'required'
         ]);
-        
+
         News::whereId($id)->update($updateNews);
         return redirect()->route('news.show', $id);
     }

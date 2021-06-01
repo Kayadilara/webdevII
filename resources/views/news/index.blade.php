@@ -8,12 +8,13 @@
             <p class="text-sm">{{ $newsitem->category }} </p>
             <a class="rounded border-2 mt-5 p-2 bg-yellow-400 text-white text-center border-transparent" href="{{ route('news.show', $newsitem->id) }}">Lees artikel</a>
             @auth
-                <a href="{{ route('news.edit', $newsitem->id)}}">Edit</a>
-                {{ Form::open(array('url' => 'news/' . $newsitem->id)) }}
-                    {{ Form::hidden('_method', 'DELETE') }}
+                <a class="rounded border-2 p-2 bg-yellow-300 text-white text-center border-transparent" href="{{ route('news.edit', $newsitem->id)}}">Edit</a>
+                {{  Form::open(array('url' => 'news/' . $newsitem->id)) }}
+                    {{  Form::hidden('_method', 'DELETE') }}
                     {{ Form::submit('Delete') }}
                 {{ Form::close() }}
             @endauth
+
         </div>
     @endforeach
 @endsection

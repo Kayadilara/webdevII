@@ -16,23 +16,32 @@ class NewsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('news')->insert(NewsTableSeeder::GenerateRandomNews(50));
-    }
-
-    function GenerateRandomNews($amount)
-    {
-        $newsList = array();
-        for($i = 0 ; $i < $amount ; $i++)
-        {
-            $news = [
+        DB::table('news')->insert(
+        [
+            [
                 'created_at' =>  Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'title' => Str::random(10),
+                'title' => 'Kiki redt de dag opnieuw',
                 'author' => Str::random(10),
-                'category' => Str::random(10),
-                'content' => Str::random(100)];
-            array_push($newsList, $news);
-        }
-        return $newsList;
+                'category' => 'Heldendaad',
+                'content' => Str::random(200)
+            ],
+            [
+                'created_at' =>  Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'title' => 'Wegens slecht weer geen vlieglessen',
+                'author' => Str::random(10),
+                'category' => 'Planning',
+                'content' => Str::random(200)
+            ],
+            [
+                'created_at' =>  Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'title' => 'Nu ook online-webshop!',
+                'author' => Str::random(10),
+                'category' => 'Website',
+                'content' => Str::random(200)
+            ]
+        ]);
     }
 }

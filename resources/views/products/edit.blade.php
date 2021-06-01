@@ -22,7 +22,7 @@
     </div>
 
     <label for="image">Image</label>
-    <img src="store_image/fetch_image/{{ $productitem->id }}" width="75" />
+    <img src="products/image/{{ $productitem->id }}" width="75" />
     <input type="text" name="image">
 
 

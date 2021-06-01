@@ -53,4 +53,12 @@ Route::get('/privacy', function()
     return view('/about/privacy');
 });
 
+Route::post('/products/cart', [ProductController::class, 'addToCart'])->name('products.cart');
+
+Route::post('/products/order', [ProductController::class, 'order'])->name('products.order');
+
+Route::post('/products/order/{order}', [ProductController::class, 'getOrder'])->name('products.order.create');
+
+Route::post('/webhooks/mollie', [ProductController::class, 'webhook'])->name('webhook.mollie');
+
 require __DIR__.'/auth.php';
