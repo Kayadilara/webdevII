@@ -22,8 +22,6 @@ class ProductController extends Controller
         return view('products.index', ['products' => Product::orderBy('updated_at','desc')
                                                             ->take(20)
                                                             ->get()]);
-
-
     }
 
     public function addToCart(Request $request, Cart $cart)
@@ -35,10 +33,10 @@ class ProductController extends Controller
             'name' => $product->name,
             'type' => $product->type,
             'price' => $product->price,
-            'quantity' => $product->quantity
+            'quantity' => 1,
         ]);
 
-        return redirect()->back;
+        return redirect()->back()->withInput();
     }
 
     public function getOrder(Order $order){
@@ -63,24 +61,22 @@ class ProductController extends Controller
             ]);
         }
 
-    $cart->clear(Auth::id());
+        $cart->clear(Auth::id());
 
+        $payment = Mollie::api()->payments->create([
+            "amount" => [
+                "currency" => "EUR",
+                "value" => strval($shoppingCart->getTotal() / 100),
+            ],
+            "description" => "Order #" . $order->id,
+            "redirectUrl" => route('products.order', $order->id),
+            "webhookUrl" => route('webhooks.mollie'),
+            "metadata" => [
+                "order_id" => $order->id,
+            ],
+        ]);
 
-    $payment = Mollie::api()->payments->create([
-        "amount" => [
-            "currency" => "EUR",
-            "value" => strval($shoppingCart->getTotal() / 100),
-        ],
-        "description" => "Order #" . $order->id,
-        "redirectUrl" => route('products.order', $order->id),
-        "webhookUrl" => route('webhooks.mollie'),
-        "metadata" => [
-            "order_id" => $order->id,
-        ],
-    ]);
-
-    return redirect($payment->getCheckoutUrl(), 303);
-
+        return redirect($payment->getCheckoutUrl(), 303);
     }
 
     public function webhook(Request $request) {
@@ -93,9 +89,9 @@ class ProductController extends Controller
         $order->save();
     }
 
-    function show($id)
+    function show($id, Cart $cart)
     {
-        return view('products.detail', ['productDetail' => Product::find($id)]);
+        return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $cart->get(Auth::id())]);
     }
 
     function create()
@@ -171,6 +167,4 @@ class ProductController extends Controller
         Product::whereId($id)->delete();
         return redirect()->route('products.index');
     }
-}
-
-?>
+} ?>

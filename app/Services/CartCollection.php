@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-
+use App\Services\CartItem;
 
 class CartCollection
 {
