@@ -13,9 +13,7 @@ class NewsController extends Controller
 
     function index()
     {
-        return view('news.index', ['news' => News::orderBy('updated_at','desc')
-                                                    ->take(20)
-                                                    ->get()]);
+        return view('news.index', ['news' => News::paginate(2)]);
     }
 
     function show($id)

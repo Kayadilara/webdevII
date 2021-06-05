@@ -19,9 +19,7 @@ class ProductController extends Controller
     function index()
     {
 
-        return view('products.index', ['products' => Product::orderBy('updated_at','desc')
-                                                            ->take(20)
-                                                            ->get()]);
+        return view('products.index', ['products' => Product::paginate(2)]);
     }
 
     public function addToCart(Request $request, Cart $cart)

@@ -24,7 +24,7 @@
                 @endguest
                 @auth
                     <a class="px-1 py-1 border rounded float-right bg-yellow-50 border-transparent hover:bg-yellow-400 " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                    <form id="logout-form " action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 @endauth

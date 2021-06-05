@@ -20,4 +20,6 @@
             @endauth
         </div>
     @endforeach
+
+    {{ $products->links() }}
 @endsection
