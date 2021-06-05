@@ -7,24 +7,44 @@
             <div>
                 <div>
                     <h2 >Winkelwagen</h2>
+                    <table>
+                        <tr>
+                            <th>Hoeveelheid</th>
+                            <th>Naam</th>
+                            <th>Prijs</th>
+                            <th>Totaal</th>
+                            <th>Verwijder</th>
+                        </tr>
                         @foreach($cart->items as $item)
                             <tr>
                                 <td>{{ $item->quantity }}x</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->price / 100 }}euro</td>
                                 <td>{{ $item->getTotal() / 100 }}euro</td>
+                                <td><a href="{{ route('products.cart.remove', $item->id)}}">Verwijder product</a></td>
                             </tr>
                         @endforeach
                         <tr >
-                            <td>
-                                Total
-                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 {{ str_replace('.', ',', $cart->getTotal() / 100) }} euro
                             </td>
+                            <td>
+                                
+                            </td>
+
                         </tr>
+                    </table>
+
+                    <a href="{{ route('products.cart.clear') }}">Maak winkelmandje leeg</a>
+
                 </div>
             </div>
+        @else
+            <p>Je winkelmandje is leeg.</p>
+
         @endif
     @endisset
 

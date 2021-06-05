@@ -2,11 +2,18 @@
 
 @section('content')
 
+    @foreach ($categories as $category)
+        @if(isset($category_filter) && $category->id == $category_filter->id)
+            <b><a href="{{ route('products.category', $category->id)}}">{{ $category->name}}</a></b>
+        @else
+            <a href="{{ route('products.category', $category->id)}}">{{ $category->name}}</a>
+        @endif
+    @endforeach
 
     @foreach ($products as $productitem)
         <div class="inline-grid m-12 gap-5 p-20 rounded border-2 bg-white">
             <p class="font-bold pb-4">{{ $productitem->name }} </p>
-            <p class="text-xs" >{{ $productitem->type }} </p>
+            <p class="text-xs" >{{ $productitem->category->name }} </p>
             <p>{{ str_replace('.',',',($productitem->price / 100)) }} euro</p>
             <p class="text-sm">{{ $productitem->quantity }} stuk(s) over</p>
 

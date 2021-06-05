@@ -27,6 +27,15 @@ class Cart
         session()->forget($this->getKey($userId));
     }
 
+    public function remove(int $userId, $id)
+    {
+        $collection = $this->get($userId);
+
+        $collection->remove($id);
+
+        session([$this->getKey($userId) => $collection]);
+    }
+
     private function getKey(int $userId)
     {
         return 'shopping_cart_' . $userId;

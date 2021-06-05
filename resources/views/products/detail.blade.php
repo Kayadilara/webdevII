@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/app.css">
-    <title>Document</title>
-</head>
-<body>
+@extends('home')
+@section('content')
 
-</body>
-</html>
 
 @isset($cart)
     @if($cart->hasItems())
         <div>
             <div>
                 <h2 >Winkelwagen</h2>
+                <table>
+                    <tr>
+                        <th>Hoeveelheid</th>
+                        <th>Naam</th>
+                        <th>Prijs</th>
+                        <th>Totaal</th>
+                    </tr>
                     @foreach($cart->items as $item)
                         <tr>
                             <td>{{ $item->quantity }}x</td>
@@ -26,13 +23,16 @@
                         </tr>
                     @endforeach
                     <tr >
-                        <td>
-                            Total
-                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
                             {{ str_replace('.', ',', $cart->getTotal() / 100) }} euro
                         </td>
+                        
+
                     </tr>
+                </table>
 
                 <form method="post" action="{{ route('products.checkout') }}">
                     @csrf
@@ -60,3 +60,5 @@
 @endisset
 
 <a href="/products">Ga terug</a>
+
+@endsection

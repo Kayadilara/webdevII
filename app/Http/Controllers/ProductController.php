@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
@@ -19,8 +21,16 @@ class ProductController extends Controller
 
     function index()
     {
+        $categories = Category::all();
+        return view('products.index', ['products' => Product::paginate(5), 'categories' => $categories]);
+    }
 
-        return view('products.index', ['products' => Product::paginate(2)]);
+    public function filterCategory($id)
+    {
+        $category = Category::findorfail($id);
+        $categories = Category::all();
+        $products = Product::where('category_id', $id)->paginate(5);
+        return view('products.index', ['category_filter' => $category, 'categories' => $categories, 'products' => $products]);
     }
 
     public function addToCart(Request $request, Cart $cart)
@@ -30,7 +40,6 @@ class ProductController extends Controller
         $cart->add(Auth::id(), [
             'id' => $product->id,
             'name' => $product->name,
-            'type' => $product->type,
             'price' => $product->price,
             'quantity' => 1,
         ]);
@@ -38,10 +47,34 @@ class ProductController extends Controller
         return redirect()->back()->withInput();
     }
 
+    public function clearCart(Cart $cart)
+    {
+        $cart->clear(Auth::id());
+        return $this->checkout($cart);
+    }
+
+    public function removeFromCart(Cart $cart, $id)
+    {
+        $cart->remove(Auth::id(), $id);
+        return $this->checkout($cart);
+    }
+
     public function getOrder(Order $order){
         return view('products.order', [
             'order' => $order,
         ]);
+    }
+
+    public function checkout(Cart $cart)
+    {
+        $user_cart = null;
+
+        if(Auth::check())
+        {
+            $user_cart = $cart->get(Auth::id());
+        }
+
+        return view('products.shoppingcart', ['cart' => $user_cart] );
     }
 
     public function order(Request $request, Cart $cart)
@@ -124,7 +157,7 @@ class ProductController extends Controller
     {
         $user_cart = null;
 
-        if(Auth::check()) 
+        if(Auth::check())
         {
             $user_cart = $cart->get(Auth::id());
         }
@@ -134,14 +167,15 @@ class ProductController extends Controller
 
     function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', ['categories' => $categories]);
     }
 
     function store(Request $request)
     {
         $storeProduct = $request->validate([
             'name' => 'required',
-            'type' => 'required',
+            'category_id' => 'required',
             'price' => 'required',
             'quantity' => 'required'
         ]);
@@ -149,7 +183,7 @@ class ProductController extends Controller
         $product = new Product;
 
         $product->name = $request->name;
-        $product->type = $request->type;
+        $product->category_id = $request->category_id;
         $product->quantity = $request->quantity;
         $product->price = $request->price;
 
@@ -184,16 +218,17 @@ class ProductController extends Controller
     function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', ['productDetail' => $product]);
+        $categories = Category::all();
+        return view('products.edit', ['productDetail' => $product, 'categories' => $categories]);
     }
 
     function update(Request $request, $id)
     {
         $updateProduct = $request->validate([
-            'Name' => 'required',
-            'Type' => 'required',
-            'Price' => 'required',
-            'Quantity' => 'required'
+            'name' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'quantity' => 'required'
         ]);
 
         Product::whereId($id)->update($updateProduct);

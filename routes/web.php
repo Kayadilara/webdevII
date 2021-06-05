@@ -58,16 +58,20 @@ Route::get('/privacy', function()
 
 Route::post('/products/cart', [ProductController::class, 'addToCart'])->name('products.cart');
 
+Route::get('/products/cart/clear', [ProductController::class, 'clearCart'])->name('products.cart.clear');
+
+Route::get('/products/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('products.cart.remove');
+
 Route::get('/products/order/{order}', [ProductController::class, 'getOrder'])->name('products.order');
 
 Route::post('/products/order', [ProductController::class, 'order'])->name('products.order.create');
 
 Route::post('/webhooks/mollie', [ProductController::class, 'webhook'])->name('webhooks.mollie');
 
-Route::post('/products/checkout', function(){
-    return view('/products/shoppingcart');
-})->name('products.checkout');
+Route::post('/products/checkout', [ProductController::class, 'checkout'])->name('products.checkout');
 
 Route::get('/products/orderoverview/{id}', [ProductController::class, 'orderOverview'])->name('products.orderoverview');
+
+Route::get('/products/category/{id}', [ProductController::class, 'filterCategory'])->name('products.category');
 
 require __DIR__.'/auth.php';

@@ -8,7 +8,6 @@ class CartItem
     public $name;
     public $quantity;
     public $price;
-    public $type;
 
     public function __construct($data)
     {
@@ -16,7 +15,6 @@ class CartItem
         $this->price = $data['price'];
         $this->name = $data['name'];
         $this->id = $data['id'];
-        $this->type = $data['type'];
     }
 
     public function getTotal()

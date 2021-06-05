@@ -6,8 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-
-class ProductTableSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,31 +15,25 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert(
+        DB::table('categories')->insert(
             [
                 [
+                    'id' => 1,
                     'name' => 'Aardbeientaart',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
-                    'category_id' => 1,
-                    'quantity' => 20,
-                    'price' => 1500
                 ],
                 [
+                    'id' => 2,
                     'name' => 'Verjaardagskaart',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
-                    'category_id' => 2,
-                    'quantity' => 50,
-                    'price' => 200
                 ],
                 [
-                    'name' => 'Kat speelgoed',
+                    'id' => 3,
+                    'name' => 'Speelgoed',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
-                    'category_id' => 3,
-                    'quantity' => 5,
-                    'price' => 3000
                 ]
             ]
         );

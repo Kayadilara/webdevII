@@ -9,8 +9,16 @@
         <input type="text" name="name" value="{{ $productDetail->name }}">
     </div>
     <div class="form">
-        <label for="type">Type</label>
-        <input type="text" name="type" value="{{ $productDetail->type }}">
+        <label for="category_id">Category</label>
+        <select name="category_id">
+            @foreach($categories as $category)
+                @if($category->id == $productDetail->category_id)
+                    <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                @else
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endif
+            @endforeach
+        </select>
     </div>
     <div class="form">
         <label for="price">Price</label>
@@ -22,7 +30,7 @@
     </div>
 
     <label for="image">Image</label>
-    <img src="products/image/{{ $productitem->id }}" width="75" />
+        <img src="products/image/{{ $productDetail->id }}" width="75" />
     <input type="text" name="image">
 
 

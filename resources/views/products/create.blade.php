@@ -8,8 +8,12 @@
         <input type="text" name="name">
     </div>
     <div class="form">
-        <label for="type">Type</label>
-        <input type="text" name="type">
+        <label for="category_id">Category</label>
+        <select name="category_id">
+            @foreach($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+        </select>
     </div>
     <div class="form">
         <label for="price">Price</label>

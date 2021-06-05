@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/app.css">
-    <title>{{ $newsDetail->title }}</title>
-</head>
-<body class="bg-gray-50">
+@extends('home')
+@section('content')
+
 <div class="flex flex-col items-center h-auto flex-wrap mx-auto my-32 w-2/4 rounded border-2 bg-white p-12">
 
     @isset($newsDetail)
@@ -23,5 +16,5 @@
 
     <a class="rounded border-2 mt-5 p-2 bg-yellow-400 text-white text-center border-transparent w-40" href="/news">Ga terug</a>
 </div>
-</body>
-</html>
+
+@endsection

@@ -33,6 +33,22 @@ class CartCollection
         $this->items = $currentItems;
     }
 
+    public function remove($id)
+    {
+        $item_key = null;
+        foreach($this->items as $key => $value)
+        {
+            if($value->id == $id)
+            {
+                $item_key = $key;
+            }
+        }
+        if(isset($item_key))
+        {
+            unset($this->items[$item_key]);
+        }
+    }
+
     public function hasItems()
     {
         return count($this->items) > 0;
