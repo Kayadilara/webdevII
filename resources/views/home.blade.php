@@ -10,29 +10,25 @@
 <body class="bg-gray-50">
     <header>
         <nav class="flex flex-col text-center content-center table flex-row text-left justify-between py-6 px-4 bg-white shadow sm:items-baseline w-full bg-yellow-300">
-        <ul>
-        <img class="w-12 ml-5 float-left" src="{{ asset('docs/images/kiki.png') }}">
-        <a href="/" class="px-4">Home</a>
-        <a href="/about" class="px-4">Over de club</a>
-        <a href="/sponsors" class="px-4">Sponsors</a>
-        <a href="/contact" class="px-4">Contact</a>
-        <a href="/news" class="px-4">Nieuws</a>
-        <a href="/products" class="px-4 font-bold">Verkoopactie</a>
-        @guest
-        <a class="px-1 py-1 border rounded float-right bg-yellow-50 mr-2 border-transparent hover:bg-yellow-400" href=" {{ route('login') }} ">log in</a>
-        <a class="px-1 py-1 border rounded float-right bg-yellow-50 mr-2 border-transparent hover:bg-yellow-400" href=" {{ route('register') }} ">registreer</a>
-    @endguest
-    @auth
-    <a class="px-1 py-1 border rounded float-right bg-yellow-50 border-transparent hover:bg-yellow-400 " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-
-<form id="logout-form " action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
-
-    @endauth
-
-
-        </ul>
+            <ul>
+                <img class="w-12 ml-5 float-left" src="{{ asset('docs/images/kiki.png') }}">
+                <a href="/" class="px-4">Home</a>
+                <a href="/about" class="px-4">Over de club</a>
+                <a href="/sponsors" class="px-4">Sponsors</a>
+                <a href="/contact" class="px-4">Contact</a>
+                <a href="/news" class="px-4">Nieuws</a>
+                <a href="/products" class="px-4 font-bold">Verkoopactie</a>
+                @guest
+                    <a class="px-1 py-1 border rounded float-right bg-yellow-50 mr-2 border-transparent hover:bg-yellow-400" href=" {{ route('login') }} ">log in</a>
+                    <a class="px-1 py-1 border rounded float-right bg-yellow-50 mr-2 border-transparent hover:bg-yellow-400" href=" {{ route('register') }} ">registreer</a>
+                @endguest
+                @auth
+                    <a class="px-1 py-1 border rounded float-right bg-yellow-50 border-transparent hover:bg-yellow-400 " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form " action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @endauth
+            </ul>
         </nav>
     </header>
 

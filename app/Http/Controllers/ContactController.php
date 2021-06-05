@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Mail\ContactForm;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    function mail($contact)
+    function mail(Request $request)
     {
-        Mail::to($contact->user->email)->send(new ContactForm($contact));
+        Mail::to($request->email)->send(new ContactForm($request));
+        return redirect()->back();
     }
 }
 

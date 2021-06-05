@@ -14,8 +14,8 @@
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
         "mailchimp/marketing": "^3.0",
-        "spatie/laravel-newsletter": "^4.10",
-        "mollie/laravel-mollie": "^2.0"
+        "mollie/laravel-mollie": "^2.14",
+        "spatie/laravel-newsletter": "^4.10"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

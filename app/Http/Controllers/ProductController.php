@@ -49,7 +49,7 @@ class ProductController extends Controller
         $shoppingCart = $cart->get(Auth::id());
 
         if (!$shoppingCart->hasItems()){
-            return redirect()->route('products');
+            return redirect()->route('products.index');
         }
 
         $order = Order::create();
@@ -63,10 +63,12 @@ class ProductController extends Controller
 
         $cart->clear(Auth::id());
 
+        error_log(number_format((float)$shoppingCart->getTotal() / 100, 2, '.', ''));
+
         $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => strval($shoppingCart->getTotal() / 100),
+                "value" => number_format((float)$shoppingCart->getTotal() / 100, 2, '.', ''),
             ],
             "description" => "Order #" . $order->id,
             "redirectUrl" => route('products.order', $order->id),
@@ -91,7 +93,18 @@ class ProductController extends Controller
 
     function show($id, Cart $cart)
     {
-        return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $cart->get(Auth::id())]);
+        //1.
+        if(Auth::check()) //ingelogd : cart en product details
+        {
+            return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $cart->get(Auth::id())]);
+        }
+        else // niet ingelogd : enkel product details
+        {
+            return view('products.detail', ['productDetail' => Product::find($id)]);
+        }
+
+
+        //return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $cart->get(Auth::id())]);
     }
 
     function create()
