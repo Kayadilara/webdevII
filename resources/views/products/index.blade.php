@@ -17,6 +17,7 @@
                     {{ Form::hidden('_method', 'DELETE') }}
                     {{ Form::submit('Delete') }}
                 {{ Form::close() }}
+                <a href="{{ route('products.orderoverview', $productitem->id) }}">Overview</a>
             @endauth
         </div>
     @endforeach

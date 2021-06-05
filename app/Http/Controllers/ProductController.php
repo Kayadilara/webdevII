@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Mollie\Laravel\Facades\Mollie;
 use App\Services\Cart;
@@ -43,25 +44,45 @@ class ProductController extends Controller
         ]);
     }
 
-    public function order(Cart $cart){
+    public function order(Request $request, Cart $cart)
+    {
         $shoppingCart = $cart->get(Auth::id());
 
         if (!$shoppingCart->hasItems()){
             return redirect()->route('products.index');
         }
 
-        $order = Order::create();
+        $orderData = $request->validate([
+            'fname' => 'required',
+            'lname' => 'required',
+            'street' => 'required',
+            'housenumber' => 'required',
+            'city' => 'required'
+        ]);
+
+        $order = Order::create($orderData);
 
         foreach($shoppingCart->items as $item){
-            $order->products()->attach($item->id, [
-                'quantity' => $item->quantity,
-                'price' => $item->price
+
+            $product = Product::find($item->id);
+            $quantity = $product->quantity;
+
+            if($quantity < $item->quantity)
+            {
+               $item->quantity = $quantity;
+               return redirect()->back()->withInput();
+            }
+
+            $product->quantity = $quantity - $item->quantity;
+
+            $product->save();
+
+            $order->orderItems()->create(
+            [
+                'product_id' => $item->id,
+                'quantity' => $item->quantity
             ]);
         }
-
-        $cart->clear(Auth::id());
-
-        error_log(number_format((float)$shoppingCart->getTotal() / 100, 2, '.', ''));
 
         $payment = Mollie::api()->payments->create([
             "amount" => [
@@ -76,6 +97,8 @@ class ProductController extends Controller
             ],
         ]);
 
+        $cart->clear(Auth::id());
+
         return redirect($payment->getCheckoutUrl(), 303);
     }
 
@@ -89,20 +112,24 @@ class ProductController extends Controller
         $order->save();
     }
 
+
+    public function orderOverview($id)
+    {
+        $overview = OrderItem::where('product_id', $id)->get();
+
+        return view('products.orderoverview', ['overviewData' => $overview]);
+    }
+
     function show($id, Cart $cart)
     {
-        //1.
-        if(Auth::check()) //ingelogd : cart en product details
+        $user_cart = null;
+
+        if(Auth::check()) 
         {
-            return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $cart->get(Auth::id())]);
-        }
-        else // niet ingelogd : enkel product details
-        {
-            return view('products.detail', ['productDetail' => Product::find($id)]);
+            $user_cart = $cart->get(Auth::id());
         }
 
-
-        //return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $cart->get(Auth::id())]);
+        return view('products.detail', ['productDetail' => Product::find($id), 'cart' => $user_cart]);
     }
 
     function create()

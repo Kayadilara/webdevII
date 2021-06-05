@@ -34,7 +34,7 @@
                         </td>
                     </tr>
 
-                <form method="post" action="{{ route('products.order.create') }}">
+                <form method="post" action="{{ route('products.checkout') }}">
                     @csrf
                     <button type="submit">Afrekenen</button>
                 </form>
