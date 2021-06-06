@@ -31,7 +31,7 @@
 
     <label for="image">Image</label>
         <img src="products/image/{{ $productDetail->id }}" width="75" />
-    <input type="text" name="image">
+    <input type="file" name="image">
 
 
     <button type="submit">Update product</button>

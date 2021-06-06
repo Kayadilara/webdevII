@@ -4,7 +4,7 @@
 
 <h3>Contact</h3>
 
-<p>Heb je nog opmerkingen of vragen? Aarzel dan niet om het ons te laten weten!</p>
+<p>Heb je nog opmerkingen of vragen? Of wil je je inschrijven voor volgend jaar? Aarzel dan niet om het ons te laten weten!</p>
 
 <div class="container">
   <form method="POST" action="{{ route('contact.form') }}">

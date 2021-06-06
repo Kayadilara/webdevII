@@ -29,7 +29,7 @@
                         <td>
                             {{ str_replace('.', ',', $cart->getTotal() / 100) }} euro
                         </td>
-                        
+
 
                     </tr>
                 </table>
@@ -47,7 +47,7 @@
 @isset($productDetail)
     <p>{{ $productDetail->name }} </p>
     <p>{{ $productDetail->type }} </p>
-    <p>{{ $productDetail->price }} euro</p>
+    <p>{{ $productDetail->price / 100 }} euro</p>
     <p>{{ $productDetail->quantity }} stuk(s) over</p>
     <img src="image/{{ $productDetail->id }}" />
     <form method="post" action="{{ route('products.cart')}}">

@@ -19,7 +19,7 @@ class ProductTableSeeder extends Seeder
         DB::table('products')->insert(
             [
                 [
-                    'name' => 'Aardbeientaart',
+                    'name' => 'Taart',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'category_id' => 1,
@@ -27,7 +27,7 @@ class ProductTableSeeder extends Seeder
                     'price' => 1500
                 ],
                 [
-                    'name' => 'Verjaardagskaart',
+                    'name' => 'Kaarten',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'category_id' => 2,
@@ -35,7 +35,7 @@ class ProductTableSeeder extends Seeder
                     'price' => 200
                 ],
                 [
-                    'name' => 'Kat speelgoed',
+                    'name' => 'Speelgoed',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'category_id' => 3,

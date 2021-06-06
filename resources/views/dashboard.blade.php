@@ -1,29 +1,10 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('home')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                    <header>
-                        <ul>
-                        <li>Over de club</li>
-                        <li>Sponsors</li>
-                        <li>Contact</li>
-                        <a href="/news"><li>Nieuws</li></a>
-                        <li>Verkoopactie</li>
-                        </ul>
-
-
-
-                    </header>
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+@section('content')
+<div>
+    <h2>Welkom!</h2>
+    <p>Hier bij Kiki's Delivery Service kan jij als jonge heks leren hoe je als een pro op een bezem kunt vliegen. </p>
+    <p>Naast het beheersen van een goede vliegtechniek leren wij jou ook het maken van lekkere gebakjes en toverdrankjes.</p>
+    <p>Leer meer over onze activteiten en wie weet zien we jou snel in onze groep!</p>
+</div>
+@endsection

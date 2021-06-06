@@ -15,4 +15,5 @@
     <p>Onze training vindt zich plaats in <span class="font-bold">Koriko.</span></p>
     <p>Heksen kunnen zich bij ons aanmelden vanaf <span class="font-bold">13 jaar.</span></p>
 </div>
+<a href="/contact">Zin om ook mee te doen met ons? Meld je hier aan!</a>
 @endsection

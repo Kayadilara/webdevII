@@ -28,6 +28,9 @@
             @endauth
         </div>
     @endforeach
+    @auth
+        <a href="{{ route('products.create')}}">Nieuw product toevoegen</a>
+        @endauth
 
     {{ $products->links() }}
 @endsection

@@ -8,4 +8,6 @@
     @else
         <h2>Aankoop is {{ $order->status }}</h2>
     @endif
+
+    <a href="/products">Ga terug</a>
 @endsection

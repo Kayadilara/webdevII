@@ -19,13 +19,13 @@ class CategorySeeder extends Seeder
             [
                 [
                     'id' => 1,
-                    'name' => 'Aardbeientaart',
+                    'name' => 'Taart',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ],
                 [
                     'id' => 2,
-                    'name' => 'Verjaardagskaart',
+                    'name' => 'Kaarten',
                     'created_at' =>  Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ],

@@ -17,6 +17,9 @@
 
         </div>
     @endforeach
+        @auth
+        <a href="{{ route('news.create')}}">Nieuw artikel schrijven</a>
+        @endauth
 
     {{ $news->links() }}
 @endsection
